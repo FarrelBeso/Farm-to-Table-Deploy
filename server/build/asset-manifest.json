@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.58560aea.css",
+    "main.js": "/static/js/main.481ec46c.js",
+    "static/media/footer.jpg": "/static/media/footer.dfeea934fc94130bdf71.jpg",
+    "static/media/login1.jpg": "/static/media/login1.67804ae7939e250e7a25.jpg",
+    "static/media/login2.jpg": "/static/media/login2.c95de6dda967048013d7.jpg",
+    "static/media/bg-wheat.png": "/static/media/bg-wheat.608b26d353c26a46741f.png",
+    "static/media/100_LOGO.png": "/static/media/100_LOGO.d403203012ed93a46d4b.png",
+    "static/media/cart.png": "/static/media/cart.aaaab7e5befeea8220a8.png",
+    "static/media/empty1.png": "/static/media/empty1.c6747102e100afdc4082.png",
+    "static/media/empty.png": "/static/media/empty.98923a9a406e104f0aab.png",
+    "static/media/orders.png": "/static/media/orders.292761b5d5f4f36f99bc.png",
+    "index.html": "/index.html",
+    "main.58560aea.css.map": "/static/css/main.58560aea.css.map",
+    "main.481ec46c.js.map": "/static/js/main.481ec46c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.58560aea.css",
+    "static/js/main.481ec46c.js"
+  ]
+}
