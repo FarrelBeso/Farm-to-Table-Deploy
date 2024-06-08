@@ -7,7 +7,6 @@ import authRoutes from "../routers/auth.js";
 import adminRoutes from "../routers/admin.js";
 import customerRoutes from "../routers/customer.js";
 import reportRoutes from "../routers/report.js";
-import * as path from "path";
 
 // prepare the dot env
 dotenv.config({ path: "../.env" });
@@ -15,7 +14,27 @@ dotenv.config({ path: "../.env" });
 const app = express();
 // middleware
 app.use(bodyParser.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://farm-to-table-deploy-ytso.vercel.app",
+    ],
+    methods: ["GET", "POST", "OPTIONS", "PATCH", "DELETE", "PUT"],
+    allowedHeaders: [
+      "X-CSRF-Token",
+      "X-Requested-With",
+      "Accept",
+      "Accept-Version",
+      "Content-Length",
+      "Content-MD5",
+      "Content-Type",
+      "Date",
+      "X-Api-Version",
+    ],
+    credentials: "true",
+  })
+);
 
 // debugging
 app.get("/", (req, res) => {
@@ -27,9 +46,6 @@ app.use("/auth", authRoutes);
 app.use("/admin", adminRoutes);
 app.use("/customer", customerRoutes);
 app.use("/report", reportRoutes);
-
-// use the static
-app.use(express.static(path.join(__dirname, "../build")));
 
 // connect to mongoDB
 const dbURI = process.env.MONGODB_URI;
