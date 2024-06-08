@@ -41,3 +41,5 @@ mongoose
   .catch((error) => {
     console.log("Unable to connect to Server and/or MongoDB", error);
   });
+
+export default app;
