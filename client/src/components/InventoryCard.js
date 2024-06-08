@@ -2,34 +2,32 @@ import axios from "axios";
 import { useState, useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 
-
 export default function Card({ product }) {
   const [quantity, setQuantity] = useState(product.quantity);
 
   const { token } = useContext(AuthContext);
 
-
-  const handleUpdate =  async (e) => {
+  const handleUpdate = async (e) => {
     if (quantity < 0 || isNaN(quantity)) {
       alert("Please input number of stocks!");
       return; // Prevent further execution if not all fields are filled
     }
 
-    try{
+    try {
       await axios.post(
-        "http://localhost:3001/admin/updateStock",
+        `${process.env.REACT_APP_BACKEND_URL}/admin/updateStock`,
         {
           productId: product._id,
-          quantity: quantity
+          quantity: quantity,
         },
         { headers: { Authorization: `Bearer ${token}` } }
-      )
+      );
       alert("Stock updated!");
       window.location.reload(); // refresh page to get current data
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <div className="h-[470px] w-[270px] bg-[#F2F2F2] rounded-2xl flex flex-col p-2 border-2 border-white hover:border-black">
@@ -72,7 +70,6 @@ export default function Card({ product }) {
             value={quantity}
             // onChange={handleProductStockChange} // Update quantity state on change
             onChange={(e) => setQuantity(Math.max(0, parseInt(e.target.value)))} // Update quantity state on change
-
             className="p-2 pl-4 rounded-xl w-20"
           />
           <button
@@ -87,4 +84,3 @@ export default function Card({ product }) {
     </div>
   );
 }
-

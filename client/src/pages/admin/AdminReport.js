@@ -33,7 +33,7 @@ export default function AdminReport() {
 
       try {
         const response = await fetch(
-          `http://localhost:3001/report/getProductsSold`,
+          `${process.env.REACT_APP_BACKEND_URL}/report/getProductsSold`,
           {
             method: "GET",
             headers: {
@@ -63,7 +63,7 @@ export default function AdminReport() {
 
       try {
         const response = await fetch(
-          `http://localhost:3001/report/getWeeklyReport`,
+          `${process.env.REACT_APP_BACKEND_URL}/report/getWeeklyReport`,
           {
             method: "GET",
             headers: {
@@ -93,7 +93,7 @@ export default function AdminReport() {
 
       try {
         const response = await fetch(
-          `http://localhost:3001/report/getMonthlyReport`,
+          `${process.env.REACT_APP_BACKEND_URL}/report/getMonthlyReport`,
           {
             method: "GET",
             headers: {
@@ -123,7 +123,7 @@ export default function AdminReport() {
 
       try {
         const response = await fetch(
-          `http://localhost:3001/report/getYearlyReport`,
+          `${process.env.REACT_APP_BACKEND_URL}/report/getYearlyReport`,
           {
             method: "GET",
             headers: {

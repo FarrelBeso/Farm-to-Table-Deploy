@@ -22,7 +22,8 @@ import axios from "axios";
 export const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const { userEmail, userFirstName, userAddress, token } = useContext(AuthContext);
+  const { userEmail, userFirstName, userAddress, token } =
+    useContext(AuthContext);
   const [forceUpdate, setForceUpdate] = useState(0);
   const [cart, setCart] = useState([]);
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ export function CartProvider({ children }) {
       if (userEmail) {
         try {
           const response = await axios.get(
-            `http://localhost:3001/customer/getCart?email=${userEmail}`,
+            `${process.env.REACT_APP_BACKEND_URL}/customer/getCart?email=${userEmail}`,
             { headers: { Authorization: `Bearer ${token}` } }
           );
           setCart(response.data.items);
@@ -67,7 +68,7 @@ export function CartProvider({ children }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/customer/addToCart",
+        `${process.env.REACT_APP_BACKEND_URL}/customer/addToCart`,
         { email: userEmail, product },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -87,7 +88,7 @@ export function CartProvider({ children }) {
   const removeFromCart = async (productId) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/customer/removeFromCart",
+        `${process.env.REACT_APP_BACKEND_URL}/customer/removeFromCart`,
         { email: userEmail, productId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -109,7 +110,7 @@ export function CartProvider({ children }) {
     if (quantity) {
       try {
         const response = await axios.post(
-          "http://localhost:3001/customer/updateCartQuantity",
+          `${process.env.REACT_APP_BACKEND_URL}/customer/updateCartQuantity`,
           { email: userEmail, productId, quantity },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -146,7 +147,7 @@ export function CartProvider({ children }) {
       };
 
       await axios.post(
-        "http://localhost:3001/customer/orderProduct",
+        `${process.env.REACT_APP_BACKEND_URL}/customer/orderProduct`,
         orderData,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -156,7 +157,7 @@ export function CartProvider({ children }) {
       // Clear the cart in the backend
       axios
         .post(
-          "http://localhost:3001/customer/clearCart",
+          `${process.env.REACT_APP_BACKEND_URL}/customer/clearCart`,
           {
             email: userEmail,
           },
@@ -193,7 +194,7 @@ export function CartProvider({ children }) {
 
     try {
       await axios.post(
-        "http://localhost:3001/customer/cancelOrder",
+        `${process.env.REACT_APP_BACKEND_URL}/customer/cancelOrder`,
         { orderId },
         { headers: { Authorization: `Bearer ${token}` } }
       );

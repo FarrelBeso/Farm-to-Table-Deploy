@@ -50,7 +50,7 @@ export default function Orders({}) {
 
       try {
         const response = await axios.get(
-          `http://localhost:3001/customer/getOrders?email=${userEmail}&status=${activeStatus}`,
+          `${process.env.REACT_APP_BACKEND_URL}/customer/getOrders?email=${userEmail}&status=${activeStatus}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

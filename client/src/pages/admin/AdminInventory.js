@@ -82,7 +82,7 @@ export default function Shop() {
     setShowModal(false);
     try {
       await axios.post(
-        "http://localhost:3001/admin/addProduct",
+        `${process.env.REACT_APP_BACKEND_URL}/admin/addProduct`,
         {
           name: productName,
           type: productType,
@@ -140,7 +140,7 @@ export default function Shop() {
 
       try {
         const response = await fetch(
-          "http://localhost:3001/admin/getProductListings",
+          `${process.env.REACT_APP_BACKEND_URL}/admin/getProductListings`,
           {
             method: "GET",
             headers: {

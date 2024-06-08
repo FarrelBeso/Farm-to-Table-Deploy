@@ -74,10 +74,13 @@ export const AuthProvider = ({ children }) => {
    */
   const login = async (email, password) => {
     try {
-      const response = await axios.post("http://localhost:3001/auth/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/auth/login`,
+        {
+          email,
+          password,
+        }
+      );
       if (response.status === 200) {
         setIsAuthenticated(true);
         setToken(response.data.token);
@@ -141,7 +144,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/auth/register",
+        `${process.env.REACT_APP_BACKEND_URL}/auth/register`,
         userData
       );
 

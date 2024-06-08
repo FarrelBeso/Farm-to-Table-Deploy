@@ -15,12 +15,12 @@ export default function Cart() {
   const [cancelledItems, setCancelledItems] = useState([]);
   const [activeStatus, setActiveStatus] = useState(0);
 
-   /**
+  /**
    * useEffect (for smooth scrolling):
    * - Initializes and configures the Lenis smooth scrolling library.
    * - This effect runs only once when the component mounts.
    */
-   useEffect(() => {
+  useEffect(() => {
     const lenis = new Lenis();
 
     function raf(time) {
@@ -39,14 +39,14 @@ export default function Cart() {
       }
 
       try {
-        const status = 0; 
+        const status = 0;
         const response = await fetch(
-          `http://localhost:3001/admin/getOrders?status=${status}`,
+          `${process.env.REACT_APP_BACKEND_URL}/admin/getOrders?status=${status}`,
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -73,12 +73,12 @@ export default function Cart() {
         const earliestDate = "2020-01-01";
         const limit = 50;
         const response = await fetch(
-          `http://localhost:3001/report/getRecentSales?earliestDate=${earliestDate}&limit=${limit}`,
+          `${process.env.REACT_APP_BACKEND_URL}/report/getRecentSales?earliestDate=${earliestDate}&limit=${limit}`,
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -105,12 +105,12 @@ export default function Cart() {
         const earliestDate = "2020-01-01";
         const limit = 50;
         const response = await fetch(
-          `http://localhost:3001/report/getCancelledOrders?earliestDate=${earliestDate}&limit=${limit}`,
+          `${process.env.REACT_APP_BACKEND_URL}/report/getCancelledOrders?earliestDate=${earliestDate}&limit=${limit}`,
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -179,37 +179,39 @@ export default function Cart() {
             pendingItems.length === 0 ? (
               <div className="flex flex-col items-center justify-center mt-20">
                 <img src={IMAGE} alt="No product" />
-                <span className="font-semibold">Oops! No orders placed yet.</span>
+                <span className="font-semibold">
+                  Oops! No orders placed yet.
+                </span>
               </div>
             ) : (
               <div className="mt-4 mb-10">
                 <AdminOrderCard users={pendingItems} />
               </div>
             )
-          ) : (
-            activeStatus === 1 ? (
-              confirmedItems.length === 0 ? (
-                <div className="flex flex-col items-center justify-center mt-20">
-                  <img src={IMAGE} alt="No product" />
-                  <span className="font-semibold">Oops! No orders confirmed yet.</span>
-                </div>
-              ) : (
-                <div className="mt-4 mb-10">
-                  <SaleReportCard users={confirmedItems} />
-                </div>
-              )
-            ) : (
-              cancelledItems.length === 0 ? (
-                <div className="flex flex-col items-center justify-center mt-20">
-                  <img src={IMAGE} alt="No product" />
-                  <span className="font-semibold">Oops! No orders cancelled yet.</span>
-                </div>
-              ) : (
-              <div className="mt-4 mb-10">
-                <SaleReportCard users={cancelledItems} />
+          ) : activeStatus === 1 ? (
+            confirmedItems.length === 0 ? (
+              <div className="flex flex-col items-center justify-center mt-20">
+                <img src={IMAGE} alt="No product" />
+                <span className="font-semibold">
+                  Oops! No orders confirmed yet.
+                </span>
               </div>
-              )
+            ) : (
+              <div className="mt-4 mb-10">
+                <SaleReportCard users={confirmedItems} />
+              </div>
             )
+          ) : cancelledItems.length === 0 ? (
+            <div className="flex flex-col items-center justify-center mt-20">
+              <img src={IMAGE} alt="No product" />
+              <span className="font-semibold">
+                Oops! No orders cancelled yet.
+              </span>
+            </div>
+          ) : (
+            <div className="mt-4 mb-10">
+              <SaleReportCard users={cancelledItems} />
+            </div>
           )}
         </div>
         <div className="spacer mx-auto"></div>

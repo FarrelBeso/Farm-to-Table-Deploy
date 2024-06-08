@@ -1,7 +1,7 @@
 import UserCard from "../../components/UserCard";
 import AdminNavbar from "../../components/AdminNavbar";
 import Lenis from "@studio-freight/lenis";
-import { useEffect, useState, useContext, useRef  } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 
 export default function AdminUsers({ userList }) {
@@ -30,7 +30,7 @@ export default function AdminUsers({ userList }) {
 
       try {
         const response = await fetch(
-          "http://localhost:3001/admin/registeredUsers",
+          `${process.env.REACT_APP_BACKEND_URL}/admin/registeredUsers`,
           {
             method: "GET",
             headers: {
@@ -64,8 +64,12 @@ export default function AdminUsers({ userList }) {
       <div className="main-container mt-3 flex">
         <div className="spacer mx-auto"></div>
         <div className="cart-container w-[800px]">
-          <h1 className="font-black text-6xl flex flex-row justify-center mb-6">Users</h1>
-          <h2 className="font-light text-4xl flex flex-row justify-center">Total: {users.length}</h2>
+          <h1 className="font-black text-6xl flex flex-row justify-center mb-6">
+            Users
+          </h1>
+          <h2 className="font-light text-4xl flex flex-row justify-center">
+            Total: {users.length}
+          </h2>
           <UserCard users={users} />
         </div>
         <div className="spacer mx-auto"></div>

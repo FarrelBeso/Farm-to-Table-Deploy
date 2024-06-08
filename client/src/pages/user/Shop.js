@@ -84,7 +84,7 @@ export default function Shop() {
 
       try {
         const response = await fetch(
-          "http://localhost:3001/customer/getProductListings",
+          `${process.env.REACT_APP_BACKEND_URL}/customer/getProductListings`,
           {
             method: "GET",
             headers: {
