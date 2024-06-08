@@ -23,13 +23,14 @@ app.use("/customer", customerRoutes);
 app.use("/report", reportRoutes);
 
 // connect to mongoDB
-const dbURI = "mongodb://127.0.0.1:27017/farm-to-table";
+const dbURI = process.env.MONGODB_URI;
+const port = process.env.PORT || 3001;
 
 mongoose
   .connect(dbURI, {})
   .then(() => {
-    app.listen(3001, () => {
-      console.log("Server connected to port 3001 and MongoDB");
+    app.listen(port, () => {
+      console.log(`Server connected to port ${port} and MongoDB`);
     });
   })
   .catch((error) => {
