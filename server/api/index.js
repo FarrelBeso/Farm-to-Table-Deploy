@@ -52,14 +52,9 @@ app.use("/report", reportRoutes);
 
 const port = process.env.PORT || 3001;
 
-app
-  .listen(port, async () => {
-    await mongoose.disconnect();
-    console.log(`Server connected to port ${port} and MongoDB`);
-  })
-
-  .catch((error) => {
-    console.log("Unable to connect to Server and/or MongoDB", error);
-  });
+app.listen(port, async () => {
+  await mongoose.disconnect();
+  console.log(`Server connected to port ${port} and MongoDB`);
+});
 
 export default app;
