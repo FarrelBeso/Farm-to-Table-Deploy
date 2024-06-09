@@ -14,7 +14,7 @@ dotenv.config({ path: "../.env" });
 // connect to express app
 const app = express();
 // middleware
-app.use(bodyParser.json());
+
 app.use(
   cors({
     origin: [process.env.FRONTEND_URL, "http://localhost:3000"],
@@ -33,6 +33,8 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(bodyParser.json());
 
 // connect to mongodb
 const dbURI = process.env.MONGODB_URI;
