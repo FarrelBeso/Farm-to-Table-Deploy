@@ -10,16 +10,14 @@ import reportRoutes from "../routers/report.js";
 
 // prepare the dot env
 dotenv.config({ path: "../.env" });
+
 // connect to express app
 const app = express();
 // middleware
 app.use(bodyParser.json());
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://farm-to-table-deploy-ytso.vercel.app",
-    ],
+    origin: [process.env.FRONTEND_URL, "http://localhost:3000"],
     methods: ["GET", "POST", "OPTIONS", "PATCH", "DELETE", "PUT"],
     allowedHeaders: [
       "X-CSRF-Token",
@@ -36,6 +34,11 @@ app.use(
   })
 );
 
+// connect to mongodb
+const dbURI = process.env.MONGODB_URI;
+
+await mongoose.connect(dbURI);
+
 // debugging
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Hello World!" });
@@ -47,17 +50,14 @@ app.use("/admin", adminRoutes);
 app.use("/customer", customerRoutes);
 app.use("/report", reportRoutes);
 
-// connect to mongoDB
-const dbURI = process.env.MONGODB_URI;
 const port = process.env.PORT || 3001;
 
-mongoose
-  .connect(dbURI, {})
-  .then(() => {
-    app.listen(port, () => {
-      console.log(`Server connected to port ${port} and MongoDB`);
-    });
+app
+  .listen(port, async () => {
+    await mongoose.disconnect();
+    console.log(`Server connected to port ${port} and MongoDB`);
   })
+
   .catch((error) => {
     console.log("Unable to connect to Server and/or MongoDB", error);
   });
