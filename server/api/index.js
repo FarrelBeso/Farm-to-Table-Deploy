@@ -19,17 +19,6 @@ app.use(
   cors({
     origin: [process.env.FRONTEND_URL, "http://localhost:3000"],
     methods: ["GET", "POST", "OPTIONS", "PATCH", "DELETE", "PUT"],
-    allowedHeaders: [
-      "X-CSRF-Token",
-      "X-Requested-With",
-      "Accept",
-      "Accept-Version",
-      "Content-Length",
-      "Content-MD5",
-      "Content-Type",
-      "Date",
-      "X-Api-Version",
-    ],
     credentials: true,
   })
 );
